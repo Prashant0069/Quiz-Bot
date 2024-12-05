@@ -92,12 +92,17 @@ WSGI_APPLICATION = "quiz_bot.wsgi.application"
 
 ASGI_APPLICATION = "quiz_bot.asgi.application"
 
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [("redis", 6379)],
+#         },
+#     },
+# }
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("redis", 6379)],
-        },
+        "BACKEND": "channels.layers.InMemoryChannelLayer",  # In-memory layer
     },
 }
 
@@ -105,14 +110,20 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': env('DB_ENGINE', 'django.db.backends.postgresql'),
+#         'NAME': env('DB_NAME', 'postgres'),
+#         'USER': env('DB_USER', 'postgres'),
+#         'PASSWORD': env('DB_PASSWORD', 'password'),
+#         'HOST': env('DB_HOST', 'db'),
+#         'PORT': env('DB_PORT', '5432'),
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': env('DB_ENGINE', 'django.db.backends.postgresql'),
-        'NAME': env('DB_NAME', 'postgres'),
-        'USER': env('DB_USER', 'postgres'),
-        'PASSWORD': env('DB_PASSWORD', 'password'),
-        'HOST': env('DB_HOST', 'db'),
-        'PORT': env('DB_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3', 
+        'NAME': BASE_DIR / 'db.sqlite3', 
     }
 }
 
